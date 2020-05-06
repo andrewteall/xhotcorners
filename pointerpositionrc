@@ -1,0 +1,29 @@
+#testing
+#Must go in this Order!!!
+#Must follow this format
+#Currently only supports one display
+#
+
+#Top Left HotCorner
+#tlenabled=[0][1]
+#tlcommand=""
+tlenabled=1
+tlcommand="xdotool click 3"
+
+#Top Right HotCorner
+#trenabled=[0][1]
+#trcommand=""
+trenabled=1
+trcommand="xdotool key super+d"
+
+#Bottom Left HotCorner
+#blenabled=[0][1]
+#blcommand=""
+blenabled=1
+blcommand="xterm"
+
+#Bottom Right HotCorner
+#brenabled=[0][1]
+#brcommand=""
+brenabled=1
+brcommand="xdotool key super+d"

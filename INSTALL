@@ -1,0 +1,4 @@
+mkdir ~/.config/xhotcorners/
+cp xhotcorners.rc.default /etc/xhotcorners.rc
+cp xhotcorners.rc.default ~/.config/xhotcorners/xhotcorners.rc
+cp xhotcorners /usr/bin

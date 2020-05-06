@@ -1,0 +1,10 @@
+usr/
+usr/bin/
+usr/bin/xhotcorners
+home/
+home/$USER/
+home/$USER/.config
+home/$USER/.config/xhotcorners/
+home/$USER/.config/xhotcorners/xhotcorners.rc
+etc/
+etc/xhotcorners.rc
