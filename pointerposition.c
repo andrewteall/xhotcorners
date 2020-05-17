@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <malloc.h>
 #include <string.h>
+#include <stdlib.h>
 
 static int _XlibErrorHandler(Display *display, XErrorEvent *event)
 {
@@ -41,6 +42,8 @@ int main ( int argc, char *argv[] )
       char *trCommand = "";
       char *blCommand = "";
       char *brCommand = "";
+      
+      //Disable all Hotcorners by default
       int topLeftHotcornerEnabled     = 0;
       int topRightHotcornerEnabled    = 0;
       int bottomLeftHotcornerEnabled  = 0;
@@ -52,23 +55,24 @@ int main ( int argc, char *argv[] )
       int height = DisplayHeight(display, scr);
 
 	   //Build rcFilePath string
-	   char *username = getlogin(); 
-      char *configFilePath =  malloc(strlen(username) + 41);
-	   strcpy(configFilePath, "/home/");
-	   strcat(configFilePath, username);
+     char *homedir = getenv("HOME");
+     char *configFilePath =  malloc(strlen(homedir) + 36);
+
+     strcat(configFilePath, homedir);
 	   strcat(configFilePath, "/.config/xhotcorners/xhotcorners.rc");
-      
+
       //Read config File and Store values in vairables
       configFile=fopen(configFilePath, "r");
+      printf( "Sucessfully Opened Config File\n");
       if (configFile != NULL)
       {
          char line[256];
-         int result, strFnd, lastOc, firstOc, commandLen;  
+         int result, strFnd, lastOc, firstOc, commandLen;
          /*****************************************************************
          * Top Left Hot Corner                                            *
          *****************************************************************/
          for(i=0;fgets(line, sizeof line, configFile) != NULL; i++)
-         {   
+         {
             if((result = strncmp(line, "tlenabled",9)) == 0)
             {
                if(line[10] == '1')
@@ -78,7 +82,7 @@ int main ( int argc, char *argv[] )
                }
                break;
             }
-            
+
          }
          for(i=0;fgets(line,sizeof line,configFile) != NULL; i++)
          {
@@ -92,7 +96,7 @@ int main ( int argc, char *argv[] )
                strncpy(tlCommand,line+firstOc +1,commandLen);
                tlCommand[commandLen] = '\0';
                break;
-            }  
+            }
          }
          /*****************************************************************
          * Top Right Hot Corner                                           *
@@ -110,7 +114,7 @@ int main ( int argc, char *argv[] )
             }
          }
          for(i=0;fgets(line,sizeof line,configFile) != NULL; i++)
-         {   
+         {
             if((result = strncmp(line, "trcommand",9)) == 0)
             {
                lastOc = strrchr(line,'"') - line;
@@ -198,15 +202,15 @@ int main ( int argc, char *argv[] )
             if (result == True)
                break;
     	   }
-    	   if (result != True) 
+    	   if (result != True)
     	   {
     	      fprintf(stderr, "No mouse found.\n");
      	      return -1;
-    	   }	
+    	   }
 
          if(topLeftHotcornerEnabled == 1)
 	  		   if (root_x == 0 && root_y == 0)
-	   	   {    
+	   	   {
     	         system(tlCommand);
     	         usleep(500000);
     	      }
