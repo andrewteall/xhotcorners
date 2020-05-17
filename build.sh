@@ -1,1 +1,1 @@
-gcc pointerposition.c -o pointerposition -lX11 
+gcc xhotcorners.c -o xhotcorners -lX11 
