@@ -51,6 +51,7 @@ int main ( int argc, char *argv[] ) {
      char *homedir = getenv("HOME");
      char *configFilePath =  malloc(strlen(homedir) + 36);
 
+     configFilePath[0] = '\0';
      strcat(configFilePath, homedir);
 	   strcat(configFilePath, "/.config/xhotcorners/xhotcorners.rc");
 
