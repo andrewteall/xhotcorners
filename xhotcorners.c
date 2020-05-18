@@ -59,7 +59,7 @@ int main ( int argc, char *argv[] ) {
       printf( "Sucessfully Opened Config File\n");
       if (configFile != NULL) {
          char line[256];
-         int result, strFnd, lastOc, firstOc, commandLen;
+         int result, lastOc, firstOc, commandLen;
          /*****************************************************************
          * Top Left Hot Corner                                            *
          *****************************************************************/
