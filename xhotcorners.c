@@ -24,8 +24,10 @@ int main ( int argc, char *argv[] ) {
       int root_x, root_y;
       int win_x, win_y;
       unsigned int mask_return;
+
       Display *display = XOpenDisplay(NULL);
       assert(display);
+
       XSetErrorHandler(_XlibErrorHandler);
       number_of_screens = XScreenCount(display);
       root_windows = malloc(sizeof(Window) * number_of_screens);
@@ -164,9 +166,12 @@ int main ( int argc, char *argv[] ) {
       /*****************************************************************
       * Start Program Loop                                             *
       *****************************************************************/
+      int commandDelay = 500000;
+      int loopDelay    = 50000;
       while(True) {
          for (i = 0; i < number_of_screens; i++) {
-            result = XQueryPointer(display, root_windows[i], &window_returned, &window_returned, &root_x, &root_y, &win_x, &win_y, &mask_return);
+            result = XQueryPointer(display, root_windows[i], &window_returned,
+              &window_returned, &root_x, &root_y, &win_x, &win_y, &mask_return);
             if (result == True)
                break;
     	   }
@@ -179,27 +184,27 @@ int main ( int argc, char *argv[] ) {
          if(topLeftHotcornerEnabled == 1)
 	  		   if (root_x == 0 && root_y == 0){
     	         system(tlCommand);
-    	         usleep(500000);
+    	         usleep(commandDelay);
     	      }
 
          if(topRightHotcornerEnabled == 1)
             if (root_x == width-1 && root_y == 0){
     			   system(trCommand);
-    			   usleep(500000);
+    			   usleep(commandDelay);
     	      }
 
          if(bottomRightHotcornerEnabled == 1)
             if (root_x == width-1 && root_y == height-1) {
     			   system(brCommand);
-    			   usleep(500000);
+    			   usleep(commandDelay);
     	      }
 
          if(bottomLeftHotcornerEnabled == 1)
             if (root_x == 0 && root_y == height-1) {
     			   system(blCommand);
-    			   usleep(500000);
+    			   usleep(commandDelay);
     	      }
-    	   usleep(50000);
+    	   usleep(loopDelay);
       }
       /*****************************************************************
       * End Program Loop                                               *
