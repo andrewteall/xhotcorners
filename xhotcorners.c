@@ -19,7 +19,6 @@ static int _XlibErrorHandler(Display *display, XErrorEvent *event) {
 }
 
 int main ( int argc, char *argv[] ) {
-  //sighandler_t previous_handler = signal(SIGINT, intHandler);
   signal(SIGINT, intHandler);
    if ( argc >= 2 ) {
 	   int result = strncmp(argv[1], "--version",9);
@@ -224,8 +223,6 @@ int main ( int argc, char *argv[] ) {
       free(brCommand);
       free(root_windows);
       (void)XCloseDisplay(display);
-      //XFree(display);
-
    }
    return 0;
 }
