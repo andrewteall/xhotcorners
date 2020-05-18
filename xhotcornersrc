@@ -20,7 +20,7 @@ trcommand="xdotool key super+d"
 #blenabled=[0][1]
 #blcommand=""
 blenabled=1
-blcommand="xterm"
+blcommand="xterm &"
 
 #Bottom Right HotCorner
 #brenabled=[0][1]
