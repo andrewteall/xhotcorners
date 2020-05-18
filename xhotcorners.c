@@ -77,7 +77,7 @@ int main ( int argc, char *argv[] ) {
                lastOc = strrchr(line,'"') - line;
                firstOc = strchr(line,'"') - line;
                commandLen = lastOc - firstOc - 1;
-               tlCommand = (char*) malloc(commandLen);
+               tlCommand = (char*) malloc(commandLen+1);
                strncpy(tlCommand,line+firstOc +1,commandLen);
                tlCommand[commandLen] = '\0';
                break;
@@ -101,7 +101,7 @@ int main ( int argc, char *argv[] ) {
                lastOc = strrchr(line,'"') - line;
                firstOc = strchr(line,'"') - line;
                commandLen = lastOc - firstOc - 1;
-               trCommand = (char*) malloc(commandLen);
+               trCommand = (char*) malloc(commandLen+1);
                strncpy(trCommand,line+firstOc +1,commandLen);
                trCommand[commandLen] = '\0';
                break;
@@ -125,7 +125,7 @@ int main ( int argc, char *argv[] ) {
                lastOc = strrchr(line,'"') - line;
                firstOc = strchr(line,'"') - line;
                commandLen = lastOc - firstOc - 1;
-               blCommand = (char*) malloc(commandLen);
+               blCommand = (char*) malloc(commandLen+1);
                strncpy(blCommand,line+firstOc +1,commandLen);
                blCommand[commandLen] = '\0';
                break;
