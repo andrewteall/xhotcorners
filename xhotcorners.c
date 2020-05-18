@@ -5,6 +5,13 @@
 #include <malloc.h>
 #include <string.h>
 #include <stdlib.h>
+#include <signal.h>
+
+static volatile int keepRunning = 1;
+
+void intHandler(int sig) {
+  keepRunning = 0;
+}
 
 static int _XlibErrorHandler(Display *display, XErrorEvent *event) {
     fprintf(stderr, "An error occured detecting the mouse position\n");
@@ -12,6 +19,8 @@ static int _XlibErrorHandler(Display *display, XErrorEvent *event) {
 }
 
 int main ( int argc, char *argv[] ) {
+  //sighandler_t previous_handler = signal(SIGINT, intHandler);
+  signal(SIGINT, intHandler);
    if ( argc >= 2 ) {
 	   int result = strncmp(argv[1], "--version",9);
 	   if (argc == 2 && result == 0)
@@ -168,7 +177,7 @@ int main ( int argc, char *argv[] ) {
       *****************************************************************/
       int commandDelay = 500000;
       int loopDelay    = 50000;
-      while(True) {
+      while(keepRunning) {
          for (i = 0; i < number_of_screens; i++) {
             result = XQueryPointer(display, root_windows[i], &window_returned,
               &window_returned, &root_x, &root_y, &win_x, &win_y, &mask_return);
@@ -214,8 +223,9 @@ int main ( int argc, char *argv[] ) {
       free(blCommand);
       free(brCommand);
       free(root_windows);
-      XFree(display);
       (void)XCloseDisplay(display);
+      //XFree(display);
+
    }
    return 0;
 }
