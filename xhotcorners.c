@@ -30,8 +30,9 @@ int main ( int argc, char *argv[] ) {
       number_of_screens = XScreenCount(display);
       root_windows = malloc(sizeof(Window) * number_of_screens);
       int i;
-      for (i = 0; i < number_of_screens; i++)
+      for (i = 0; i < number_of_screens; i++) {
          root_windows[i] = XRootWindow(display, i);
+      }
       FILE *configFile;
 
       //Default commands to blank
