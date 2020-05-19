@@ -37,7 +37,7 @@ int main ( int argc, char *argv[] ) {
 
       XSetErrorHandler(_XlibErrorHandler);
       number_of_screens = XScreenCount(display);
-      root_windows = malloc(sizeof(Window) * number_of_screens);
+      root_windows = (Window*) malloc(sizeof(Window) * number_of_screens);
       int i;
       for (i = 0; i < number_of_screens; i++) {
          root_windows[i] = XRootWindow(display, i);
@@ -58,7 +58,7 @@ int main ( int argc, char *argv[] ) {
 
 	   //Build rcFilePath string
      char *homedir = getenv("HOME");
-     char *configFilePath =  malloc(strlen(homedir) + 36);
+     char *configFilePath = (char*) malloc(strlen(homedir) + 36);
 
      configFilePath[0] = '\0';
      strcat(configFilePath, homedir);
