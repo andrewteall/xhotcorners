@@ -1,11 +1,10 @@
 #include <X11/Xlib.h>
-#include <stdio.h>
-#include <assert.h>
-#include <unistd.h>
-#include <malloc.h>
+#include <assert.h> //assert()
+#include <unistd.h> //usleep()
+#include <malloc.h> //malloc
 #include <string.h>
-#include <stdlib.h>
-#include <signal.h>
+#include <stdlib.h> //getenv()
+#include <signal.h> //signal() & SIGINT
 
 static volatile int keepRunning = 1;
 
