@@ -19,11 +19,11 @@ static int _XlibErrorHandler(Display *display, XErrorEvent *event) {
 
 int main(int argc, char *argv[]) {
     signal(SIGINT, intHandler);
-    if (argc >= 2) {
-        int result = strncmp(argv[1], "--version", 9);
-        if (argc == 2 && result == 0)
-            printf("xhotcorners Beta\n");
+    
+    if (argc == 2 && strcmp(argv[1], "--version") == 0) {
+        printf("xhotcorners Beta\n");    
     } else {
+        
         int number_of_screens;
         Bool result;
         Window *root_windows;
@@ -57,16 +57,30 @@ int main(int argc, char *argv[]) {
         int height = DisplayHeight(display, scr);
 
         //Build rcFilePath string
-        char *homedir = getenv("HOME");
-        char *configFilePath = (char *)malloc(strlen(homedir) + 36);
+        char *basepath;
+        char *configFilePath;
 
-        configFilePath[0] = '\0';
-        strcat(configFilePath, homedir);
-        strcat(configFilePath, "/.config/xhotcorners/xhotcorners.rc");
+        if (argc == 3 && strcmp(argv[1], "-C") == 0) {
+            printf("Using Custom Config File Path\n");
+            basepath = getenv("PWD");
+            configFilePath = (char *)malloc(strlen(basepath) + strlen(argv[2]) + 1);
+            configFilePath[0] = '\0';
+            strcat(configFilePath, basepath);
+            strcat(configFilePath, "/");
+            strcat(configFilePath, argv[2]);
+        } else {
+            basepath = getenv("HOME");
+            configFilePath = (char *)malloc(strlen(basepath) + 36);
+            configFilePath[0] = '\0';
+            strcat(configFilePath, basepath);
+            strcat(configFilePath, "/.config/xhotcorners/xhotcorners.rc");
+        }
+
 
         //Read config File and Store values in vairables
         configFile = fopen(configFilePath, "r");
         printf("Sucessfully Opened Config File\n");
+
         if (configFile != NULL) {
             char line[256];
             int result, lastOc, firstOc, commandLen;
