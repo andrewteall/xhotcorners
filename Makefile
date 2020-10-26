@@ -7,3 +7,6 @@ xhotcorners: xhotcorners.c
 
 clean:
 	rm -f xhotcorners
+
+debug:
+	valgrind  -v --leak-check=full --track-origins=yes ./xhotcorners
