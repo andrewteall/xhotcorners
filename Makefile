@@ -16,9 +16,10 @@ debug:
 	valgrind  -v --leak-check=full --track-origins=yes ./xhotcorners
 
 install:
-	@sudo install -m 0755 xhotcorners $(DESTDIR)$(PREFIX)/bin 
-	@install -m 0644 -T xhotcorners ~/.xhotcorners
+	@sudo install -m 0755 xhotcorners $(DESTDIR)$(PREFIX)/bin
+	@mkdir -p  ~/.config/xhotcorners/
+	@install -m 0644 -T xhotcorners.conf ~/.config/xhotcorners/xhotcorners.conf
 
 uninstall:
 	@sudo rm  -f $(DESTDIR)$(PREFIX)/bin/xhotcorners
-	@rm ~/.xhotcorners
+	@rm ~/.config/xhotcorners/xhotcorners.conf
