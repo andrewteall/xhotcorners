@@ -69,17 +69,23 @@ int main(int argc, char *argv[]) {
             strcat(configFilePath, "/");
             strcat(configFilePath, argv[2]);
         } else {
-            basepath = getenv("HOME");
-            configFilePath = (char *)malloc(strlen(basepath) + 36);
+            basepath = getenv("PWD");
+            configFilePath = (char *)malloc(strlen(basepath) + 18);
             configFilePath[0] = '\0';
             strcat(configFilePath, basepath);
-            strcat(configFilePath, "/.config/xhotcorners/xhotcorners.rc");
+            strcat(configFilePath, "/xhotcorners.conf");
+            if( !access( configFilePath, R_OK ) == 0 ) {
+                basepath = getenv("HOME");
+                configFilePath = (char *)malloc(strlen(basepath) + 38);
+                configFilePath[0] = '\0';
+                strcat(configFilePath, basepath);
+                strcat(configFilePath, "/.config/xhotcorners/xhotcorners.conf");
+            }
         }
-
 
         //Read config File and Store values in vairables
         configFile = fopen(configFilePath, "r");
-        printf("Sucessfully Opened Config File\n");
+        printf("Sucessfully Opened Config File at %s\n", configFilePath);
 
         if (configFile != NULL) {
             char line[256];
